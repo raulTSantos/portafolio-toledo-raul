@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card my-5">
+    <div class="card-header">Nuevo Proyecto</div>
+    <div class="card-body">
+        <h4 class="card-title">Datos de Proyecto</h4>
+        <form class="needs-validation" novalidate method="post"  enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                
+                {% for x in form %}
+                {% if x.name != 'description' %}
+                <div class="form-group col-md-6">
+                    <label for="{{ x.name }}">{{x.label}}</label>
+                    <input type="{{ x.field.widget.input_type}}" class="{{x.field.widget.attrs.class}} {{  form.errors|yesno:"is-invalid,''" }}" name="{{x.name}} " placeholder="{{ x.field.widget.attrs.placeholder}}">
+                    {% if x.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in x.errors%}
+                            {{ error|escape }}
+                            {% endfor %}
+                        </div>             
+                    {% endif %}
+                </div>
+                {% endif %}
+                
+                
+                {% endfor %}
+                <div class="form-group col-md-12">
+                    <label for=""> {{form.description.label}} </label>
+                    <textarea class="form-control {{  form.errors|yesno:"is-invalid,''" }}" name="{{ form.description.name }}" id="" cols="44" rows="2"></textarea>
+                    {% if x.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in x.errors%}
+                            {{ error|escape }}
+                            {% endfor %}
+                        </div>             
+                    {% endif %}
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Registrar</button>
+        </form>
+    </div>
+</div>
+{% endblock%}

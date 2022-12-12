@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en"class="h-100" style="scroll-behavior: smooth !important;">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}{% endblock %}</title>
+    <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="d-flex flex-column h-100" >
+  <header class="fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <div class="collapse navbar-collapse" id="navbarText">
+          <a class="navbar-brand border border-info px-2" href="#"><i class="fas fa-laptop-code"></i> RAUL T</a>
+            <ul class="navbar-nav mr-auto ">
+              <li class="nav-item ">
+                <a class="nav-link" href="{% url 'index'%}">Inicio </a>
+              </li>
+              {% if request.user.is_anonymous %}
+              <li class="nav-item">
+                <a class="nav-link" href="/home#projects">Proyectos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/home#services">Servicios</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/home#skills">Skills</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/home#contact">Contacto</a>
+              </li>
+              
+              {% endif %}
+              {% if request.user.is_authenticated %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                    Administracion
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{%url 'create'%}">Nuevo Proyecto</a>
+                  <a class="dropdown-item" href="{%url 'projectpage'%}">Proyectos</a>
+                </div>
+              </li>
+              {% endif %}
+            </ul>
+            
+        </div>
+        {% if request.user.is_authenticated %}
+        <span class="navbar-text mr-2 text-uppercase">
+            USUARIO: {{request.user.first_name}} {{request.user.last_name}}
+        </span>
+        <form class="form-inline my-2 my-lg-0">
+          <a href="{% url 'logout'%}?next={{request.path}}" class="btn btn-outline-success my-2 my-sm-0" >Cerrar Sesion</a>
+      </form>
+        {% endif %}
+        {% if request.user.is_anonymous %}
+        <form class="form-inline my-2 my-lg-0">
+          <a href="{% url 'login'%}" class="btn btn-outline-warning my-2 my-sm-0" >Iniciar Sesion</a>
+        </form>
+        {% endif %}
+    </nav>
+  </header>
+  <main style="margin-top: 5px;">
+    <div class="container">
+        <div class="row ">
+            <div class="col-12 mt-5">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+  </main>
+    
+  <footer class=" bg-dark footer mt-auto text-white-50" id="contact">
+    <div class="container-fluid text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4 col-sm-3">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold">Acerca de Mi</h6>
+          <hr class="mb-4 mt-0 d-inline-block mx-auto"style="width: 60px; background-color: #7c4dff; height: 2px"/>
+          <p>
+            Desarrollador Web con buenas practicas profesionales dispuesto a crecer cada dia en el mundo tecnologico.
+          </p>
+          <p><strong>"Nunca es tarde para bien hacer; haz hoy lo que no hiciste ayer"</strong></p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 col-sm-2">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold">Productos</h6>
+          <hr
+              class="mb-4 mt-0 d-inline-block mx-auto"
+              style="width: 60px; background-color: #7c4dff; height: 2px"
+              />
+          <p>
+            <a href="#!" class="text-white">Angular 11</a>
+          </p>
+          <p>
+            <a href="#!" class="text-white">Python 3</a>
+          </p>
+          <p>
+            <a href="#!" class="text-white">React Native</a>
+          </p>
+          
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 col-sm-3" id="services">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold">Servicios</h6>
+          <hr
+              class="mb-4 mt-0 d-inline-block mx-auto"
+              style="width: 60px; background-color: #7c4dff; height: 2px"
+              />
+          <p>
+            <a href="#!" class="text-white">Diseño Web</a>
+          </p>
+          <p>
+            <a href="#!" class="text-white">Backend</a>
+          </p>
+          <p>
+            <a href="#!" class="text-white">PMBOK</a>
+          </p>
+          
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 col-sm-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold">Contact</h6>
+          <hr
+              class="mb-4 mt-0 d-inline-block mx-auto"
+              style="width: 60px; background-color: #7c4dff; height: 2px"
+              />
+          <p><i class="fas fa-home mr-3"></i> Trujillo, CV 10012, PE</p>
+          <p><i class="fas fa-envelope mr-3"></i> raultoledo97@gmail.com</p>
+          <p><i class="fas fa-phone mr-3"></i> + 51 987654321</p>
+          
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+   
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3 col-md-12 col-sm-12">
+      © 2022 Copyright:
+      <a class="text-white" href="https://www.gob.pe/mtpe">Bootcamp Silabuz - MTPE</a>
+    </div>
+    <a id="back-to-top" href="#" class="btn btn-light  btn-lg  position-fixed" role="button" style="bottom:25px;right: 25px;  z-index:2;"><i class="fas fa-chevron-up"></i></a>
+
+  
+  <script src="https://kit.fontawesome.com/3166719c59.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(window).scroll(function () {
+          if ($(this).scrollTop() > 0) {
+            $('#back-to-top').slideDown(300);
+          } else {
+            $('#back-to-top').slideUp(300);
+          }
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+          $('body,html').animate({
+            scrollTop: 0
+          }, 400);
+          return false;
+        });
+    });
+  </script>
+</body>
+</html>

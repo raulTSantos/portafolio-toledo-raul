@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="mt-5">
+  {% if messages%}
+  <p> {{ messages}}</p>
+   {% endif %}
+  <h2 class ="text-center my-3">ADMINISTRACION DE SISTEMA</h2>
+  {% if  form.non_field_errors %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ form.non_field_errors }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endif %}
+    <div class="card mb-5" style="width: 30%; margin: auto ">
+      <div class="card-body">
+        <h2>Iniciar Sesion</h2>
+        <hr>
+        <form method="post" novalidate class="">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="col-12 mt-4 col-md-12">
+              <input type="text" name="username" class="form-control {{ form.username.errors|yesno:"is-invalid,''" }}" placeholder="username"  requeried/>
+              {% if form.username.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.username.errors%}
+                            {{ error|escape }}
+                            {% endfor %}
+                        </div>             
+                    {% endif %}
+            </div>
+            <div class="col-12 mt-3 col-md-12">
+              <input type="password" name="password" class="form-control" placeholder="**********" />
+            </div>
+            <div class="col-12 d-grid mt-3 col-md-12">
+              <button type="submit" class="btn btn-primary">
+                Iniciar Session
+              </button>
+              <a href="{% url 'register'%}" class="btn btn-secondary float-right">
+                Nueva cuenta
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+</div>
