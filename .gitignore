@@ -5,7 +5,7 @@
 sistema.rar
 #files
 .sqlite3
-staticfiles/
+#staticfiles/
 
 ### Django ###
 *.log
