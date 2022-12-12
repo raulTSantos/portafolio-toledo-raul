@@ -51,15 +51,17 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig'
 ]
 
+CSRF_TRUSTED_ORIGINS =['https://portafolio-toledo-raul-production.up.railway.app/']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 ROOT_URLCONF = 'sistema.urls'
@@ -87,7 +89,7 @@ WSGI_APPLICATION = 'sistema.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
+    'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=500)
 }
 
 
@@ -141,5 +143,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'')
 MEDIA_URL= '/images/'
 
 #archivos staticos
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "images")]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
